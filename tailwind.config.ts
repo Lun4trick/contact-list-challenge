@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const plugin = require('tailwindcss/plugin')
 
 const config: Config = {
   content: [
@@ -6,15 +7,41 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  variants: {
+    extend: {
+      textOpacity: ['active'],
+    }
+  },
+
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontFamily: {
+        glysa: ["Glysa", "sans-serif"],
+        lexendDeca: ["LexendDeca", "sans-serif"],
       },
+
+      opacity: {
+        low: ".32",
+        medium: ".52",
+      },
+
+      colors: {
+        base: {
+          10: "#414141",
+          20: "#3C3C3C",
+          30: "#373737",
+          40: "#323232",
+          50: "#2D2D2D",
+          60: "#282828",
+          70: "#232323",
+          80: "#1E1E1E",
+          90: "#191919",
+          100: "#141414"
+        }
+      }
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 };
 export default config;
