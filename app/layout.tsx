@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className="h-screen" lang="en">
-      <body className="grid grid-cols-[1fr_2fr_1fr] grid-rows-[auto_auto_1fr] h-screen">
+      <body className="grid grid-cols-[1fr_3fr_1fr] grid-rows-[auto_auto_1fr] h-screen">
         <Header />
         {children}
       </body>
