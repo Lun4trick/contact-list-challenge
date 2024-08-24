@@ -22,7 +22,7 @@ const config: Config = {
 
       opacity: {
         low: ".32",
-        medium: ".52",
+        medium: ".56",
       },
 
       colors: {
