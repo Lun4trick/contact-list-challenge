@@ -19,6 +19,7 @@ model Contact {
   email       String
   phone       String
   picture     String
+  pictureName String
   isFavorite  Boolean  @default(false)
   isSilenced  Boolean  @default(false)
   createdAt   DateTime @default(now())

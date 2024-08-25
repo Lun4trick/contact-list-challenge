@@ -4,4 +4,5 @@ type ContactDetailsType = {
   email?: string
   phone?: string
   picture: string
+  pictureName: string
 }

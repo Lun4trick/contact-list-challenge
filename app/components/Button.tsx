@@ -19,13 +19,13 @@ function Button({ onClick, children, iconSrc, iconAlt, buttonType, isDisabled }:
       onClick={onClick}
       disabled={isDisabled}
       className={cn(
-        {'bg-base-60 justify-center hover:bg-base-50 active:bg-base-40': buttonType === 'PRIMARY'},
-        {'hover:bg-base-90 justify-center active:bg-base-80': buttonType === 'SECONDARY'},
+        {'bg-base-60 justify-center rounded-lg hover:bg-base-50 active:bg-base-40': buttonType === 'PRIMARY'},
+        {'hover:bg-base-90 justify-center rounded-lg active:bg-base-80': buttonType === 'SECONDARY'},
         {'py-[12px] px-[10px] bg-base-80 hover:bg-base-70 active:bg-base-60 w-[200px]': buttonType === 'DROPDOWN'},
         {'p-2': !children && iconSrc},
         {'px-4 py-2': children && buttonType !== 'DROPDOWN'},
         {'disabled:opacity-50 pointer-events-none cursor-not-allowed': isDisabled},
-        'flex flex-grow items-center rounded-lg gap-2'
+        'flex flex-grow items-center gap-2'
       )}
     >
       {(iconSrc && iconAlt) && (

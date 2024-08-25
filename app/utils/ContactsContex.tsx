@@ -7,14 +7,14 @@ type Context = {
 
 const contacts = createContext<Context>({
   contacts: [],
-  setContacts: () => {}
+  setContacts: () => {},
 })
 
 export function ContactsContex({ children }: Readonly<{ children: React.ReactNode }>) {
   const [contactsList, setContactsList] = React.useState<ContactDetailsType[]>([])
 
   return (
-    <contacts.Provider value={{contacts: contactsList, setContacts: setContactsList}}>
+    <contacts.Provider value={{contacts: contactsList, setContacts: setContactsList }}>
       {children}
     </contacts.Provider>
   )

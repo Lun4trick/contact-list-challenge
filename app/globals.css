@@ -25,8 +25,11 @@
       hover:from-base-50/70 hover:to-base-50/100
       active:from-base-40/70 active:to-base-40/100
     }
-  }
 
+    .translate-x-80-percent {
+      transform: translateX(80%);
+    }
+  }
   @layer base {
     h1 {
       @apply font-glysa sm:text-[32px] text-[24px] font-medium sm:leading-[48px] leading-[32px] tracking-[0]

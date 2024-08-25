@@ -6,13 +6,12 @@ import { useQuery } from 'react-query'
 import fetchImage from '@/app/utils/requestFunctions/fetchImage'
 import useImageUpload from '@/app/hooks/useImageChange'
 import Button from '../Button'
-import { getSignedUrlForImgUpload } from '@/app/serverActions/getSignedUrlForImgUpload'
-import { uploadImage } from '@/app/utils/requestFunctions/uploadImage'
-import { v4 } from 'uuid'
-import { addContactToDB } from '@/app/serverActions/addContactToDB'
+import { addContactToDB } from '@/app/serverActions/contactActionsWithDB'
 import { useContactsContext } from '@/app/utils/ContactsContex'
-import { getContactDetails } from '@/app/utils/getContactDetails'
-import { fetchContacts } from '@/app/utils/requestFunctions/fetchContacts'
+import handleImageUpload from '@/app/utils/requestFunctions/handleImageUpload'
+import { motion } from 'framer-motion'
+import { getContactDetails } from '@/app/serverActions/getContactDetails'
+import { v4 } from 'uuid'
 
 type Props = {
   closeModal: () => void
@@ -31,24 +30,6 @@ function AddContactForm({ closeModal }: Props) {
     }
   }, [defaultImage, imageFile.value])
 
-  const handleImageUpload = async (file: File) => {
-    try {
-      const fileName = v4()
-      const url = await getSignedUrlForImgUpload(fileName, file.type, file.size)
-
-      if (url.failure) {
-        throw new Error(url.failure)
-      } else if(url.success) {
-        await uploadImage(file, url.success)
-        const signedUrlOfImage = await fetchImage(`${fileName}`)
-        console.log(signedUrlOfImage)
-        imageLink.set(signedUrlOfImage)
-      }
-    } catch (error) {
-      console.error('Error uploading image:', error)
-    }
-  }
-
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     closeModal()
@@ -58,14 +39,21 @@ function AddContactForm({ closeModal }: Props) {
     e.preventDefault()
     try {
       setIsUploading(true)
-      await handleImageUpload(imageFile.value as File)
-      await addContactToDB({
+      const contactToAdd = {
         name: formFields.find(field => field.label === 'Name')?.value as string,
         email: formFields.find(field => field.label === 'Email address')?.value as string,
         phone: formFields.find(field => field.label === 'Phone number')?.value as string,
         picture: imageLink.value,
-      })
-      const newContacts = await fetchContacts()
+        pictureName: v4()
+      }
+      console.log(contactToAdd.pictureName)
+      const signedImageLink = await handleImageUpload(imageFile.value as File, contactToAdd.pictureName)
+
+      imageLink.set(signedImageLink)
+
+      await addContactToDB(contactToAdd)
+      
+      const newContacts = await getContactDetails()
       setContacts(newContacts)
     } catch (error) {
       console.error('Error adding contact:', error)
@@ -90,7 +78,19 @@ function AddContactForm({ closeModal }: Props) {
           <p>Cancel</p>
         </Button>
         <Button buttonType='PRIMARY' onClick={handleSumbit} isDisabled={isUploading}>
-          <p>Done</p>
+          <motion.p
+            transition={{ 
+              opacity: isUploading 
+                ? { duration: 1, repeat: Infinity, repeatType: 'reverse' } 
+                : {}
+              }}
+            animate={{ 
+              opacity: isUploading 
+                ? [0, 1] 
+                : [] 
+              }}
+          >Done
+          </motion.p>
         </Button>
       </div>
     </form>

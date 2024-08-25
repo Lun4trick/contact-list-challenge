@@ -1,6 +1,6 @@
 // app/api/images/route.ts
 import { NextResponse } from "next/server";
-import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { NextApiRequest } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
@@ -30,5 +30,23 @@ export async function GET(req: Request, context: {params: {name: string}}): Prom
   } catch (error) {
     console.error('Error fetching image from S3:', error);
     return new Response('Error fetching image from S3');
+  }
+}
+
+export async function DELETE(req: Request, context: {params: {name: string}}): Promise<ResponseData | void> {
+  try {
+    const command = new DeleteObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME!,
+      Key: context.params.name,
+    });
+
+    const url = await getSignedUrl(s3, command);
+
+    await fetch(url, { method: 'DELETE' });
+
+    return new NextResponse('Image deleted successfully');
+  } catch (error) {
+    console.error('Error deleting image from S3:', error);
+    return new Response('Error deleting image from S3');
   }
 }

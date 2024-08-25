@@ -8,11 +8,12 @@ type Props = {
 }
 
 function ContactContainer({ contactDetails }: Props) {
-  const { name, phone, picture } = contactDetails
+  const { id, name, phone, picture, pictureName } = contactDetails
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
       className='flex w-full justify-between py-3 group'
     >
       <div className='flex gap-2'>
@@ -22,7 +23,7 @@ function ContactContainer({ contactDetails }: Props) {
           <p>{phone}</p>
         </div>
       </div>
-      <ContactContainerButtons />
+      <ContactContainerButtons contactId={id!} contactPictureName={pictureName} />
     </motion.div>
   )
 }

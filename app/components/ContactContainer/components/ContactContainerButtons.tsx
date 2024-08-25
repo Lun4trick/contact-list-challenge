@@ -4,7 +4,12 @@ import Button from '../../Button'
 import OptionsDropDown from './OptionsDropDown'
 import cn from 'classnames'
 
-function ContactContainerButtons() {
+type Props = {
+  contactId: string
+  contactPictureName: string
+}
+
+function ContactContainerButtons({ contactId }: Props) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false)
   const optionsButtonRef = useRef(null)
 
@@ -53,7 +58,8 @@ function ContactContainerButtons() {
           </Button>
           {(button.name === 'options' 
             && isOptionsOpen) 
-            && <OptionsDropDown 
+            && <OptionsDropDown
+                  contactId={contactId}
                   isOpen={isOptionsOpen} 
                   setIsOpen={handleOptionsClick}
                   optionsButtonRef={optionsButtonRef}
