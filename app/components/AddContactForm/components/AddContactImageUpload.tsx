@@ -4,13 +4,15 @@ import { motion } from 'framer-motion'
 import { ImageFileUploadType, ImageLinkType } from '@/app/types/imageUploadTypes'
 import cn from 'classnames'
 import Button from '../../Button'
+import fetchImage from '@/app/utils/requestFunctions/fetchImage'
 type Props = {
   imageFile: ImageFileUploadType
   imageLink: ImageLinkType
   isImageDefault: boolean
+  setIsDefaultImage: (val: boolean) => void
 }
 
-function AddContactImageUpload({ imageFile, imageLink, isImageDefault }: Props) {
+function AddContactImageUpload({ imageFile, imageLink, isImageDefault, setIsDefaultImage }: Props) {
   const fileUploadRef = useRef<HTMLInputElement>(null)
   const uploadButtonIcon = isImageDefault ? '/svgs/plus-icon.svg' : '/svgs/update-icon.svg'
 
@@ -26,9 +28,11 @@ function AddContactImageUpload({ imageFile, imageLink, isImageDefault }: Props) 
     }
   }
 
-  const handleResetToDefault = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleResetToDefault = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     imageFile.set(null)
+    imageLink.set(await fetchImage())
+    setIsDefaultImage(true)
   }
 
   return (

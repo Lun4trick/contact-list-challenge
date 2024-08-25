@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useState } from 'react'
-import PopUpModal from '../components/PopUpModal/PopUpModal'
-import EditContactDetails from '../components/AddContactForm/EditContactDetails'
 
 type Context = {
   contacts: ContactDetailsType[]

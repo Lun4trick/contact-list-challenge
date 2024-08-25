@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     getContactDetails().then(contacts => {
-      setContacts(contacts)
+      setContacts(contacts.sort((a, b) => a.name.localeCompare(b.name)))
     }).catch(error => {
       console.error('Error fetching contacts:', error)
     })
