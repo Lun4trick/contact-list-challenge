@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { formatToPhoneNumber } from '../utils/formatToPhoneNumber'
 
 type FormFieldsType = {
   emailField: EditContactFieldType
@@ -37,7 +38,8 @@ function useAddContact(): {nameField: EditContactFieldType, emailField: EditCont
         }
   
         if (e) {
-          setPhone(e.target.value)
+          const formatedValue = formatToPhoneNumber(e.target.value)
+          setPhone(formatedValue)
         }
       },
     },
