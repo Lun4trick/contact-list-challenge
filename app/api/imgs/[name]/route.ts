@@ -1,13 +1,6 @@
-// app/api/images/route.ts
 import { NextResponse } from "next/server";
 import { DeleteObjectCommand, GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { NextApiRequest } from "next";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-
-type ResponseData = {
- url: string,
-}
 
 const s3 = new S3Client({
   credentials: {
@@ -17,7 +10,7 @@ const s3 = new S3Client({
   region: process.env.AWS_REGION
 });
 
-export async function GET(req: Request, context: {params: {name: string}}): Promise<ResponseData> {
+export async function GET(req: Request, context: {params: {name: string}}) {
   try {
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME!,
@@ -33,7 +26,7 @@ export async function GET(req: Request, context: {params: {name: string}}): Prom
   }
 }
 
-export async function DELETE(req: Request, context: {params: {name: string}}): Promise<ResponseData | void> {
+export async function DELETE(req: Request, context: {params: {name: string}}) {
   try {
     const command = new DeleteObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME!,

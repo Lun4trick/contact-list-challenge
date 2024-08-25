@@ -28,6 +28,7 @@ function AddContactForm({ closeModal }: Props) {
     if (defaultImage && !imageFile.value) {
       imageLink.set(defaultImage)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultImage, imageFile.value])
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {

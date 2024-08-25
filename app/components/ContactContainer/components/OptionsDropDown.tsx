@@ -28,6 +28,7 @@ function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Pro
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [optionsButtonRef]);
 
   return (
