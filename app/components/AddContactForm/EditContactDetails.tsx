@@ -24,7 +24,6 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   const { data: defaultImage } = useQuery('image', () => fetchImage())
   const [isUploading, setIsUploading] = useState(false)
   const { contacts, setContacts } = useContactsContext()
-  const [isDefaultImage, setIsDefaultImage] = useState(false)
 
   useEffect(() => {
     if (idToEdit) {
@@ -50,11 +49,11 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   }, [idToEdit])
 
   useEffect(() => {
-    if (defaultImage && !imageFile.value && !imageLink.value) {
+    if (defaultImage && !imageFile.value && !idToEdit) {
       imageLink.set(defaultImage)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultImage, imageFile.value, imageLink])
+  }, [defaultImage, imageFile.value])
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -104,11 +103,10 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
       <h2 className='text-left w-full'>
         Add contact
       </h2>
-      <AddContactImageUpload 
-        isImageDefault={isDefaultImage} 
+      <AddContactImageUpload
+        defaultImage={defaultImage} 
         imageFile={imageFile} 
         imageLink={imageLink}
-        setIsDefaultImage={setIsDefaultImage}
         />
       {formFields.map(field => (
         <AddContactInputField key={field.label} field={field} />
