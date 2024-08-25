@@ -9,21 +9,45 @@ function useAddContact(): AddContactFieldType[] {
     label: 'Name',
     placeholder: 'Jamie Wright',
     value: name,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value),
+    onChange: (e?: React.ChangeEvent<HTMLInputElement>, value?: string) => {
+      if (value) {
+        setName(value)
+      }
+
+      if (e) {
+        setName(e.target.value)
+      }
+    },
   }
 
   const emailField: AddContactFieldType = {
     label: 'Email address',
     placeholder: 'jamie.wright@mail.com',
     value: email,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+    onChange: (e?: React.ChangeEvent<HTMLInputElement>, value?: string) => {
+      if (value) {
+        setEmail(value)
+      }
+
+      if (e) {
+        setEmail(e.target.value)
+      }
+    },
   }
 
   const phoneField: AddContactFieldType = {
     label: 'Phone number',
     placeholder: '+01 234 5678',
     value: phone,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value),
+    onChange: (e?: React.ChangeEvent<HTMLInputElement>, value?: string) => {
+      if (value) {
+        setPhone(value)
+      }
+
+      if (e) {
+        setPhone(e.target.value)
+      }
+    },
   }
 
   return [nameField, emailField, phoneField]

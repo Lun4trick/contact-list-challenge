@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import ContactContainer from "./components/ContactContainer/ContactContainer";
 import { useContactsContext } from "./utils/ContactsContex";
 import { getContactDetails } from "./serverActions/getContactDetails";
+import PopUpModal from "./components/PopUpModal/PopUpModal";
+import EditContactDetails from "./components/AddContactForm/EditContactDetails";
 
 export default function Home() {
-  const { contacts, setContacts } = useContactsContext();
+  const { contacts, setContacts, isContactEditOpen, setIsContactEditOpen, editableContactId} = useContactsContext();
 
   useEffect(() => {
     getContactDetails().then(contacts => {
@@ -20,6 +22,10 @@ export default function Home() {
       {contacts.map(contact => (
         <ContactContainer key={contact.name} contactDetails={contact} />
       ))}
+      { isContactEditOpen &&
+        <PopUpModal closeModal={() => setIsContactEditOpen(prev => !prev)}>
+          <EditContactDetails idToEdit={editableContactId} closeModal={() => setIsContactEditOpen(false)} />
+        </PopUpModal>}
     </main>
   );
 }

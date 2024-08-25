@@ -2,6 +2,9 @@ import Image from 'next/image'
 import React from 'react'
 import ContactContainerButtons from './components/ContactContainerButtons'
 import { motion } from 'framer-motion'
+import { useContactsContext } from '@/app/utils/ContactsContex'
+import PopUpModal from '../PopUpModal/PopUpModal'
+import EditContactDetails from '../AddContactForm/EditContactDetails'
 
 type Props = {
   contactDetails: ContactDetailsType

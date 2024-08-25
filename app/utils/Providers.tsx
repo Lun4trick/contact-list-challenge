@@ -7,11 +7,11 @@ import { ContactsContex } from './ContactsContex'
 function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = new QueryClient()
   return (
-    <ContactsContex>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
-    </ContactsContex>
+    <QueryClientProvider client={queryClient}>
+      <ContactsContex>
+          {children}
+      </ContactsContex>
+    </QueryClientProvider>
   )
 }
 

@@ -1,15 +1,17 @@
-import React from 'react'
 import { useContactsContext } from '../utils/ContactsContex'
 import { deleteContactFromDB } from '../serverActions/contactActionsWithDB'
 
 function useContactActions(id: string) {
-  const { contacts, setContacts } = useContactsContext()
+  const { contacts, setContacts, setIsContactEditOpen, setEditableContactId } = useContactsContext()
   const contactImage = contacts.find(contact => contact.id === id)?.pictureName
   const options = [
     {
       name: 'edit',
       icon: '/svgs/settings-icon.svg',
-      onClick: () => console.log('edit clicked')
+      onClick: () => {
+        setEditableContactId(id)
+        setIsContactEditOpen(prev => !prev)
+      }
     },
     {
       name: 'favourite',

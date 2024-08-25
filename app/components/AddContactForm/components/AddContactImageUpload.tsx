@@ -7,12 +7,12 @@ import Button from '../../Button'
 type Props = {
   imageFile: ImageFileUploadType
   imageLink: ImageLinkType
+  isImageDefault: boolean
 }
 
-function AddContactImageUpload({ imageFile, imageLink }: Props) {
+function AddContactImageUpload({ imageFile, imageLink, isImageDefault }: Props) {
   const fileUploadRef = useRef<HTMLInputElement>(null)
-  const isImageSetted = imageFile.value !== null
-  const uploadButtonIcon = isImageSetted ? '/svgs/update-icon.svg' : '/svgs/plus-icon.svg'
+  const uploadButtonIcon = isImageDefault ? '/svgs/plus-icon.svg' : '/svgs/update-icon.svg'
 
   const handleFileUpload = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -63,14 +63,14 @@ function AddContactImageUpload({ imageFile, imageLink }: Props) {
         <Button buttonType='PRIMARY' iconSrc={uploadButtonIcon} iconAlt='plus-icon' onClick={handleFileUpload}>
             <motion.p
               className={cn(
-                {'invisible w-0 h-0': isImageSetted},
+                {'invisible w-0 h-0': !isImageDefault},
                 'relative'
               )}
               initial={{
                 top: -100,
               }}
               animate={{
-                top: !isImageSetted ? 0 : -100,
+                top: isImageDefault ? 0 : -100,
               }}
               transition={{
                 duration: 0.5
@@ -80,14 +80,14 @@ function AddContactImageUpload({ imageFile, imageLink }: Props) {
             </motion.p>
             <motion.p
               className={cn(
-                {'invisible w-0 h-0': !isImageSetted},
+                {'invisible w-0 h-0': isImageDefault},
                 'relative'
               )}
               initial={{
                 bottom: -100,
               }}
               animate={{
-                bottom: isImageSetted ? 0 : -100,
+                bottom: !isImageDefault ? 0 : -100,
               }}
               transition={{
                 duration: 0.5
@@ -98,7 +98,7 @@ function AddContactImageUpload({ imageFile, imageLink }: Props) {
         </Button>
         <div
           className={cn(
-          {'invisible pointer-events-none': !isImageSetted},
+          {'invisible pointer-events-none': isImageDefault},
         )}>
           <Button buttonType='PRIMARY' iconSrc='/svgs/trash-icon.svg' iconAlt='delete-icon' onClick={handleResetToDefault} />
         </div>

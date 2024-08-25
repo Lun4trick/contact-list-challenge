@@ -3,6 +3,7 @@ import Button from '../../Button'
 import { motion } from 'framer-motion'
 import useWatchMedia from '@/app/hooks/useMedia'
 import useContactActions from '@/app/hooks/useContactActions'
+import { useContactsContext } from '@/app/utils/ContactsContex'
 
 type Props = {
   contactId: string
@@ -13,6 +14,7 @@ type Props = {
 
 function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Props) {
   const optionsMenuRef = useRef<HTMLDivElement>(null)
+  const { isContactEditOpen, setIsContactEditOpen} = useContactsContext()
   const options = useContactActions(contactId)
   const isMobile = useWatchMedia('(min-width: 768px)')
 
@@ -44,7 +46,10 @@ function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Pro
             buttonType='DROPDOWN' 
             iconSrc={option.icon} 
             iconAlt={option.name}
-            onClick={option.onClick}>
+            onClick={() => {
+              option.onClick()
+              setIsOpen(false)
+            }}>
             {option.name}
           </Button>
         </div>
