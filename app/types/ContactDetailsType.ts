@@ -3,6 +3,8 @@ type ContactDetailsType = {
   name: string
   email?: string
   phone?: string
+  isFavourite?: boolean
+  isSilenced?: boolean
   picture: string
   pictureName: string
 }

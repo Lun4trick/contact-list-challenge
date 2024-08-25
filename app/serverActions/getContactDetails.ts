@@ -7,6 +7,8 @@ export async function getContactDetails() {
     id: contact.id,
     name: contact.name,
     phone: contact.phone,
+    isFavourite: contact.isFavourite,
+    isSilenced: contact.isSilenced,
     picture: contact.picture,
     pictureName: contact.pictureName,
   }))

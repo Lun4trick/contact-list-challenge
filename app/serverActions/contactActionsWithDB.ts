@@ -33,3 +33,23 @@ export async function deleteContactFromDB(id: string, imageName: string): Promis
     throw new Error('Error deleting contact from DB')
   }
 }
+
+export async function editContactInDB(contact: ContactDetailsType, id: string): Promise<void> {
+  try {
+    await prisma.contact.update({
+      where: {
+        id
+      },
+      data: {
+        name: contact.name,
+        email: contact.email,
+        phone: contact.phone,
+        picture: contact.picture,
+        pictureName: contact.pictureName
+      }
+    })
+  } catch (error) {
+    console.error('Error editing contact in DB:', error)
+    throw new Error('Error editing contact in DB')
+  }
+}

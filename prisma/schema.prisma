@@ -21,7 +21,7 @@ model Contact {
   phone       String
   picture     String
   pictureName String
-  isFavorite  Boolean  @default(false)
+  isFavourite  Boolean  @default(false)
   isSilenced  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
