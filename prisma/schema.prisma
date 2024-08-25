@@ -13,6 +13,14 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+// datasource db {
+//  provider = "sqlite"
+//  url      = "file:./dev.db"
+// }
+// I leave this here because you asked me to do it with that, so you can test the project with sqlite as well.
+// just uncomment the above code and comment the code above it.
+// than run the command `npx prisma migrate dev --name init` to create the database and tables.
+
 
 model Contact {
   id          String   @id @default(uuid())

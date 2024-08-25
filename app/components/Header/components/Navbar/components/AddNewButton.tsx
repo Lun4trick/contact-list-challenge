@@ -1,4 +1,4 @@
-import EditContactDetails from '@/app/components/AddContactForm/EditContactDetails'
+import EditContactDetails from '@/app/components/EditContactDetailsForm/EditContactDetails'
 import PopUpModal from '@/app/components/PopUpModal/PopUpModal'
 import Image from 'next/image'
 import React from 'react'

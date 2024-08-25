@@ -4,7 +4,7 @@ import ContactContainer from "./components/ContactContainer/ContactContainer";
 import { useContactsContext } from "./utils/ContactsContex";
 import { getContactDetails } from "./serverActions/getContactDetails";
 import PopUpModal from "./components/PopUpModal/PopUpModal";
-import EditContactDetails from "./components/AddContactForm/EditContactDetails";
+import EditContactDetails from "./components/EditContactDetailsForm/EditContactDetails";
 
 export default function Home() {
   const { contacts, setContacts, isContactEditOpen, setIsContactEditOpen, editableContactId} = useContactsContext();
@@ -15,7 +15,7 @@ export default function Home() {
     }).catch(error => {
       console.error('Error fetching contacts:', error)
     })
-  }, [])
+  }, [setContacts])
 
   return (
     <main className="col-span-1 px-[24px] py-[12px] col-start-2 border-x-[1px] border-base-60 row-start-3">

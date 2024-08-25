@@ -14,7 +14,6 @@ type Props = {
 
 function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Props) {
   const optionsMenuRef = useRef<HTMLDivElement>(null)
-  const { isContactEditOpen, setIsContactEditOpen} = useContactsContext()
   const options = useContactActions(contactId)
   const isMobile = useWatchMedia('(min-width: 768px)')
 

@@ -1,5 +1,6 @@
 import { useContactsContext } from '../utils/ContactsContex'
 import { deleteContactFromDB } from '../serverActions/contactActionsWithDB'
+import toast from 'react-hot-toast'
 
 function useContactActions(id: string) {
   const { contacts, setContacts, setIsContactEditOpen, setEditableContactId } = useContactsContext()
@@ -16,7 +17,10 @@ function useContactActions(id: string) {
     {
       name: 'favourite',
       icon: '/svgs/favourite-icon.svg',
-      onClick: () => console.log('favourite clicked')
+      onClick: () => toast.loading('Coming soon!', {
+        style: {background: '#333333', color: '#ffffff'},
+        duration: 1500,
+      })
     },
     {
       name: 'delete',

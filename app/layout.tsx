@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header/Header";
 import Providers from "./utils/Providers";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Contacts challenge",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <Providers>
         <body className="grid grid-cols-[auto_auto_auto] grid-rows-[auto_auto_1fr] h-screen">
           <Header />
+          <Toaster position="top-center"/>
           {children}
         </body>
       </Providers>

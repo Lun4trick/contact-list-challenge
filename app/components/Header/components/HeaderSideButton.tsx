@@ -1,6 +1,8 @@
+'use client'
 import React from 'react'
 import cn from 'classnames'
 import { HeaderSideButtonPositionType } from '@/app/types/HeaderSideButtonPositionType'
+import toast from 'react-hot-toast'
 
 type Props = {
   position: HeaderSideButtonPositionType
@@ -16,6 +18,12 @@ function HeaderSideButton({position, children}: Props) {
     )}>
       <div className='flex w-fit h-full sm:px-[20px] px-[8px]  items-center'>
         <button
+        onClick={() => {
+          toast.loading('Coming soon!', {
+            style: {background: '#333333', color: '#ffffff'},
+            duration: 1500,
+          })
+        }}
           className={cn(
             'h-fit p-2 max-w-[35px] min-w-[25px] sm:max-w-fit',
             {'ml-auto': position === 'LEFT'}

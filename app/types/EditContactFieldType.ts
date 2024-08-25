@@ -1,4 +1,4 @@
-type AddContactFieldType = {
+type EditContactFieldType = {
   label: 'Email address' | 'Name' | 'Phone number';
   placeholder?: string;
   value: string;

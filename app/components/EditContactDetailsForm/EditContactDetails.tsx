@@ -1,7 +1,7 @@
 import useAddContact from '@/app/hooks/useAddContact'
 import React, { useEffect, useState } from 'react'
-import AddContactInputField from './components/AddContactInputField'
-import AddContactImageUpload from './components/AddContactImageUpload'
+import AddContactInputField from './components/EditContactInputField'
+import AddContactImageUpload from './components/EditContactImageUpload'
 import { useQuery } from 'react-query'
 import fetchImage from '@/app/utils/requestFunctions/fetchImage'
 import useImageUpload from '@/app/hooks/useImageChange'
@@ -12,6 +12,7 @@ import handleImageUpload from '@/app/utils/requestFunctions/handleImageUpload'
 import { motion } from 'framer-motion'
 import { getContactDetails } from '@/app/serverActions/getContactDetails'
 import { v4 } from 'uuid'
+import toast from 'react-hot-toast'
 
 type Props = {
   closeModal: () => void
@@ -19,7 +20,8 @@ type Props = {
 }
 
 function EditContactDetails({ closeModal, idToEdit }: Props) {
-  const formFields: AddContactFieldType[] = useAddContact()
+  const {emailField, nameField, phoneField} = useAddContact()
+  const formFields = [nameField, emailField, phoneField]
   const { imageFile, imageLink } = useImageUpload()
   const { data: defaultImage } = useQuery('image', () => fetchImage())
   const [isUploading, setIsUploading] = useState(false)
@@ -31,19 +33,9 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
       if (contact) {
         console.log(contact)
         imageLink.set(contact?.picture)
-        formFields.forEach((field) => {
-          if (field.label === 'Email address') {
-            field.onChange(undefined, contact.email)
-          }
-
-          if (field.label === 'Name') {
-            field.onChange(undefined, contact.name)
-          }
-
-          if (field.label === 'Phone number') {
-            field.onChange(undefined, contact.phone)
-          }
-        }) 
+        emailField.onChange(undefined, contact.email)
+        nameField.onChange(undefined, contact.name)
+        phoneField.onChange(undefined, contact.phone)
       }
     }
   }, [idToEdit])
@@ -52,7 +44,6 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
     if (defaultImage && !imageFile.value && !idToEdit) {
       imageLink.set(defaultImage)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultImage, imageFile.value])
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,16 +53,20 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
 
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (nameField?.value === '') {
+      toast.error('Name field cannot be empty')
+      return
+    }
     try {
       const contactToEdit = contacts.find(contact => contact.id === idToEdit)
       setIsUploading(true)
       const isImageChanged = contactToEdit?.picture !== imageLink.value
       const newContactDetails = {
-        name: formFields.find(field => field.label === 'Name')?.value as string,
-        email: formFields.find(field => field.label === 'Email address')?.value as string,
-        phone: formFields.find(field => field.label === 'Phone number')?.value as string,
+        name: nameField.value,
+        email: emailField.value,
+        phone: phoneField.value,
         picture: imageLink.value,
-        pictureName: isImageChanged ? v4() : contactToEdit.pictureName
+        pictureName: isImageChanged ? v4() : contactToEdit?.pictureName
       }
       console.log(newContactDetails.pictureName)
       if (imageFile.value) {
@@ -101,7 +96,7 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   return (
     <form className='w-full flex flex-col gap-6'>
       <h2 className='text-left w-full'>
-        Add contact
+        {idToEdit ? 'Edit contact' : 'Add contact'}
       </h2>
       <AddContactImageUpload
         defaultImage={defaultImage} 
@@ -127,7 +122,8 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
                 ? [0, 1] 
                 : [] 
               }}
-          >Done
+            >
+              Done
           </motion.p>
         </Button>
       </div>
