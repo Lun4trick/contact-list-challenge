@@ -32,7 +32,6 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
     if (idToEdit) {
       const contact = contacts.find(contact => contact.id === idToEdit)
       if (contact) {
-        console.log(contact)
         imageLink.set(contact?.picture)
         emailField.onChange(undefined, contact.email)
         nameField.onChange(undefined, contact.name)
@@ -74,7 +73,6 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
         picture: imageLink.value,
         pictureName: isImageChanged ? v4() : contactToEdit?.pictureName
       }
-      console.log(newContactDetails.pictureName)
       if (imageFile.value) {
         const signedImageLink = await handleImageUpload(imageFile.value as File, newContactDetails.pictureName)
   
