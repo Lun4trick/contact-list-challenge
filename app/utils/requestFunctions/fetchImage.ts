@@ -1,5 +1,5 @@
 const fetchImage = async (name?: string) => {
-  const res = await fetch(`/api/imgs/${name || ''}`, {method: 'GET', next: {revalidate: 1}})
+  const res = await fetch(`/api/imgs/${name || ''}`, {method: 'GET', next: {revalidate: 0}})
   if (!res.ok) {
     throw new Error('Failed to fetch image')
   }

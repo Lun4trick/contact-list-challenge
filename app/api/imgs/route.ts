@@ -15,10 +15,6 @@ export async function GET() {
     const response = new Response(url, {
       headers: {
         'Content-Type': 'text/plain',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Surrogate-Control': 'no-store'
       }
     });
 
