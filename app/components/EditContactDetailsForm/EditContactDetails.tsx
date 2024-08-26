@@ -13,6 +13,7 @@ import { motion } from 'framer-motion'
 import { getContactDetails } from '@/app/serverActions/getContactDetails'
 import { v4 } from 'uuid'
 import toast from 'react-hot-toast'
+import { checkIsEmailFormatCorrect } from '@/app/utils/checkEmailFormat'
 
 type Props = {
   closeModal: () => void
@@ -54,7 +55,12 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (nameField?.value === '') {
-      toast.error('Name field cannot be empty')
+      toast.error('Name field cannot be empty', {style: {backgroundColor: '#333333', color: '#ffffff'}})
+      return
+    }
+
+    if (!checkIsEmailFormatCorrect(emailField.value)) {
+      toast.error('Invalid email format', {style: {backgroundColor: '#333333', color: '#ffffff'}})
       return
     }
     try {
@@ -84,8 +90,8 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
       
       const newContacts = await getContactDetails()
       setContacts(newContacts.sort((a, b) => a.name.localeCompare(b.name)))
-    } catch (error) {
-      console.error('Error adding contact:', error)
+    } catch (error: any) {
+      toast.error(error.message as string, {style: {backgroundColor: '#333333', color: '#ffffff'}})
     }
      finally {
       setIsUploading(false)

@@ -1,9 +1,17 @@
 'use server'
 
+import { checkIsEmailFormatCorrect } from "../utils/checkEmailFormat"
 import prisma from "../utils/pisma"
 import { deleteImage } from "../utils/requestFunctions/deleteImage"
 
 export async function addContactToDB(contact: ContactDetailsType): Promise<void> {
+  if (contact.name === '') {
+    throw new Error('Name field cannot be empty')
+  }
+
+  if (contact.email && !checkIsEmailFormatCorrect(contact.email)) {
+    throw new Error('Invalid email format')
+  }
   try {
     await prisma.contact.create({
       data: {
@@ -14,9 +22,8 @@ export async function addContactToDB(contact: ContactDetailsType): Promise<void>
         pictureName: contact.pictureName
       }
     })
-  } catch (error) {
-    console.error('Error adding contact to DB:', error)
-    throw new Error('Error adding contact to DB')
+  } catch (error: any) {
+    throw new Error(error.message)
   }
 }
 
@@ -36,6 +43,13 @@ export async function deleteContactFromDB(id: string, imageName: string): Promis
 
 export async function editContactInDB(contact: ContactDetailsType, id: string): Promise<void> {
   try {
+    if (contact.name === '') {
+      throw new Error('Name field cannot be empty')
+    }
+
+    if (contact.email && !checkIsEmailFormatCorrect(contact.email)) {
+      throw new Error('Invalid email format')
+    }
     await prisma.contact.update({
       where: {
         id
@@ -48,8 +62,7 @@ export async function editContactInDB(contact: ContactDetailsType, id: string): 
         pictureName: contact.pictureName
       }
     })
-  } catch (error) {
-    console.error('Error editing contact in DB:', error)
-    throw new Error('Error editing contact in DB')
+  } catch (error: any) {
+    throw new Error(error.message)
   }
 }
