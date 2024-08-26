@@ -1,4 +1,4 @@
-import useAddContact from '@/app/hooks/useAddContact'
+import useAddContact from '@/app/hooks/useEditContact'
 import React, { useEffect, useState } from 'react'
 import AddContactInputField from './components/EditContactInputField'
 import AddContactImageUpload from './components/EditContactImageUpload'
