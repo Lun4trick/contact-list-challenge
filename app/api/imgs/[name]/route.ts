@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { DeleteObjectCommand, GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-export const fetchCache = 'force-no-store';
+export const dynamic = "force-dynamic"
 
 const s3 = new S3Client({
   credentials: {

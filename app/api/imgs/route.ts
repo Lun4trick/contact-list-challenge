@@ -2,6 +2,8 @@ import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import s3 from "@/app/utils/s3Bucket";
 
+export const dynamic = "force-dynamic"
+
 export async function GET() {
   try {
     const command = new GetObjectCommand({
