@@ -14,7 +14,6 @@ export async function GET() {
     const response = new Response(url, {
       headers: {
         'Content-Type': 'text/plain',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
       }
     });
 
