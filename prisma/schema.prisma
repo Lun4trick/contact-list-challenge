@@ -27,7 +27,6 @@ model Contact {
   name        String
   email       String
   phone       String
-  picture     String
   pictureName String
   isFavourite  Boolean  @default(false)
   isSilenced  Boolean  @default(false)

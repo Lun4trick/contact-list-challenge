@@ -1,5 +1,4 @@
 import { getSignedUrlForImgUpload } from "@/app/serverActions/getSignedUrlForImgUpload"
-import fetchImage from "./fetchImage"
 import { uploadImage } from "./uploadImage"
 
 /* This function returns the signed url of the uploaded image, 
@@ -13,9 +12,7 @@ const handleImageUpload = async (file: File, fileName: string) => {
       throw new Error(url.failure)
     }
     await uploadImage(file, url.success!)
-    const signedUrlOfImage = await fetchImage(`${fileName}`)
-    
-    return signedUrlOfImage
+
   } catch (error) {
     console.error('Error uploading image:', error)
     throw new Error('Error uploading image')

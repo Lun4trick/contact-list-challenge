@@ -5,7 +5,6 @@ type ContactDetailsType = {
   phone?: string
   isFavourite?: boolean
   isSilenced?: boolean
-  picture: string
   pictureName: string
   createdAt?: Date
 }

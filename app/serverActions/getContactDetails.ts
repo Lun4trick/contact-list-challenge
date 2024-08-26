@@ -10,7 +10,6 @@ export async function getContactDetails() {
     email: contact.email,
     isFavourite: contact.isFavourite,
     isSilenced: contact.isSilenced,
-    picture: contact.picture,
     pictureName: contact.pictureName,
     createdAt: contact.createdAt
   }))

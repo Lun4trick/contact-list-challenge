@@ -24,23 +24,33 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   const {emailField, nameField, phoneField} = useAddContact()
   const formFields = [nameField, emailField, phoneField]
   const { imageFile, imageLink } = useImageUpload()
-  const { data: defaultImage } = useQuery('image', () => fetchImage())
   const [isUploading, setIsUploading] = useState(false)
   const { contacts, setContacts } = useContactsContext()
+  const { data: defaultImage } = useQuery('image', () => fetchImage())
+
   useEffect(() => {
-    if (idToEdit) {
-      const contact = contacts.find(contact => contact.id === idToEdit)
-      if (contact) {
-        imageLink.set(contact?.picture)
-        emailField.onChange(undefined, contact.email)
-        nameField.onChange(undefined, contact.name)
-        phoneField.onChange(undefined, contact.phone)
+    const contactToEdit = contacts.find(contact => contact.id === idToEdit)
+    const getEditableImage = async () => {
+      const image = await fetchImage(contactToEdit?.pictureName)
+      return image
+    }
+    try {
+      if (contactToEdit) {
+        getEditableImage().then(image => {
+          imageLink.set(image)
+        })
       }
+    } finally {
+      if (contactToEdit) {
+        emailField.onChange(undefined, contactToEdit.email)
+        nameField.onChange(undefined, contactToEdit.name)
+        phoneField.onChange(undefined, contactToEdit.phone)
+    }
     }
   }, [idToEdit])
 
   useEffect(() => {
-    if (defaultImage && !imageFile.value && !idToEdit) {
+    if (defaultImage && !imageFile.value && !imageLink.value) {
       imageLink.set(defaultImage)
     }
   }, [defaultImage, imageFile.value, imageLink.value])
@@ -64,18 +74,18 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
     try {
       const contactToEdit = contacts.find(contact => contact.id === idToEdit)
       setIsUploading(true)
-      const isImageChanged = contactToEdit?.picture !== imageLink.value
+      const isImageChanged = defaultImage !== imageLink.value
+      const pictureName = imageFile.value ? v4() : contactToEdit?.pictureName 
+      if (imageFile.value && pictureName) {
+        console.log(pictureName)
+        await handleImageUpload(imageFile.value as File, pictureName)
+      }
+
       const newContactDetails = {
         name: nameField.value,
         email: emailField.value,
         phone: phoneField.value,
-        picture: imageLink.value,
-        pictureName: isImageChanged ? v4() : contactToEdit?.pictureName
-      }
-      if (imageFile.value) {
-        const signedImageLink = await handleImageUpload(imageFile.value as File, newContactDetails.pictureName)
-  
-        imageLink.set(signedImageLink)
+        pictureName: pictureName || ''
       }
 
       if (!idToEdit) {

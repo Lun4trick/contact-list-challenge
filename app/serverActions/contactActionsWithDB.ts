@@ -30,7 +30,6 @@ export async function addContactToDB(contact: ContactDetailsType): Promise<void>
         name: contact.name,
         email: contact.email || '',
         phone: contact.phone || '',
-        picture: contact.picture,
         pictureName: contact.pictureName
       }
     })
@@ -70,7 +69,6 @@ export async function editContactInDB(contact: ContactDetailsType, id: string): 
         name: contact.name,
         email: contact.email,
         phone: contact.phone,
-        picture: contact.picture,
         pictureName: contact.pictureName
       }
     })

@@ -18,7 +18,7 @@ function AddContactImageUpload({ imageFile, imageLink, defaultImage }: Props) {
   const uploadButtonIcon = isImageDefault ? '/svgs/plus-icon.svg' : '/svgs/update-icon.svg'
 
   useEffect(() => {
-    const isDEfault = imageLink.value.includes('Default.png')
+    const isDEfault = imageLink.value.includes('Default.png') || !imageLink.value
     setIsImageDefault(isDEfault)
   }, [imageLink])
 

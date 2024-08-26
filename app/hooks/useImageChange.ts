@@ -20,10 +20,6 @@ function useImageUpload(): {
     }
   }, [imageFileValue])
 
-  useEffect(() => {
-    setImageLinkValue(imageLinkValue)
-  }, [imageLinkValue])
-
   const imageFile = {
     value: imageFileValue,
     set: setImageFileValue,
