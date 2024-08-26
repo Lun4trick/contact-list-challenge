@@ -58,8 +58,10 @@ export async function editContactInDB(contact: ContactDetailsType, id: string): 
     throw new Error('Contact not found')
   }
 
+  const isDeleteRequired = oldContact.pictureName && oldContact?.pictureName !== contact.pictureName || contact.pictureName === ''
+
   console.log(oldContact.pictureName, contact.pictureName)
-  if (oldContact.pictureName && oldContact?.pictureName !== contact.pictureName) {
+  if (isDeleteRequired) {
     try {
       await deleteImage(oldContact?.pictureName)
     } catch (error) {
