@@ -19,7 +19,7 @@ export async function GET(_req: Request, context: {params: {name: string}}) {
       Key: context.params.name,
     });
 
-    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    const url = await getSignedUrl(s3, command, { expiresIn: 3 });
 
     const response = new Response(url, {
       headers: {
