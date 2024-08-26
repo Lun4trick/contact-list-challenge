@@ -9,7 +9,8 @@ export async function GET() {
       Key: 'Default.png',
     });
 
-    const url = await getSignedUrl(s3, command);
+    const url = await getSignedUrl(s3, command, { expiresIn: 3 });
+    console.log('url:', url);
 
     const response = new Response(url, {
       headers: {
