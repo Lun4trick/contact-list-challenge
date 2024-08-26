@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ImageFileUploadType, ImageLinkType } from '@/app/types/imageUploadTypes'
@@ -14,7 +14,7 @@ type Props = {
 
 function AddContactImageUpload({ imageFile, imageLink, defaultImage }: Props) {
   const fileUploadRef = useRef<HTMLInputElement>(null)
-  const [isImageDefault, setIsImageDefault] = React.useState<boolean>(imageLink.value === defaultImage)
+  const [isImageDefault, setIsImageDefault] = useState<boolean>(imageLink.value === defaultImage)
   const uploadButtonIcon = isImageDefault ? '/svgs/plus-icon.svg' : '/svgs/update-icon.svg'
 
   useEffect(() => {

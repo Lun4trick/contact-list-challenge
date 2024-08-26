@@ -12,6 +12,7 @@ export async function getContactDetails() {
     isSilenced: contact.isSilenced,
     picture: contact.picture,
     pictureName: contact.pictureName,
+    createdAt: contact.createdAt
   }))
 
   return transformedContacts

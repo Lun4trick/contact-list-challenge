@@ -7,4 +7,5 @@ type ContactDetailsType = {
   isSilenced?: boolean
   picture: string
   pictureName: string
+  createdAt?: Date
 }
