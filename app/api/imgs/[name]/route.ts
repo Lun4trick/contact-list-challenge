@@ -10,16 +10,23 @@ const s3 = new S3Client({
   region: process.env.AWS_REGION
 });
 
-export async function GET(req: Request, context: {params: {name: string}}) {
+export async function GET(_req: Request, context: {params: {name: string}}) {
   try {
     const command = new GetObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME!,
       Key: context.params.name,
     });
 
-    const url = await getSignedUrl(s3, command);
+    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
 
-    return new NextResponse(url)
+    const response = new Response(url, {
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      }
+    });
+
+    return response;
   } catch (error) {
     console.error('Error fetching image from S3:', error);
     return new Response('Error fetching image from S3');

@@ -11,7 +11,14 @@ export async function GET() {
 
     const url = await getSignedUrl(s3, command);
 
-    return new Response(url)
+    const response = new Response(url, {
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      }
+    });
+
+    return response
   } catch (error) {
     console.error('Error fetching image from S3:', error);
     return new Response('Error fetching image from S3');
