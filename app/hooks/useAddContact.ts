@@ -34,7 +34,8 @@ function useAddContact(): {nameField: EditContactFieldType, emailField: EditCont
       value: phone,
       onChange: (e?: React.ChangeEvent<HTMLInputElement>, value?: string) => {
         if (value) {
-          setPhone(value)
+          const formatedValue = formatToPhoneNumber(value)
+            setPhone(formatedValue)
         }
   
         if (e) {
