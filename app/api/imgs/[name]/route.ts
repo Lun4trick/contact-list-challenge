@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { DeleteObjectCommand, GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
+export const fetchCache = 'force-no-store';
+
 const s3 = new S3Client({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
@@ -17,7 +19,7 @@ export async function GET(_req: Request, context: {params: {name: string}}) {
       Key: context.params.name,
     });
 
-    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
 
     const response = new Response(url, {
       headers: {
