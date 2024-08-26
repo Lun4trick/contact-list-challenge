@@ -33,7 +33,7 @@ Both DB is containing only me as a contact at the moment, but feel free to add y
 ## Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/contact-list-challenge.git
+   git clone https://github.com/Lun4trick/contact-list-challenge.git
 
 2. Navigate To the project dir:
    ```bash
