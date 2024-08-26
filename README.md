@@ -37,3 +37,25 @@ The Contact List Challenge is a web application that allows users to add, edit, 
 4. Start the dev server:
    ```bash
    npm run dev
+
+## Addition info about db
+
+## Additional Info About DB
+
+The app currently uses Vercel SQL DB due to the limitations of using SQLite with Vercel. However, you can switch to SQLite by following these steps:
+
+1. Update your `prisma/schema.prisma` file:
+   ```prisma
+   datasource db {
+     provider = "sqlite"
+     url      = "file:./dev.db"
+   }
+   //rest of the code...
+  
+2. Run the prisma migration:
+   ```bash
+   npx prisma migrate dev --name <name>
+
+3. Generate the prisma client:
+   ```bash
+   npx prisma generate
