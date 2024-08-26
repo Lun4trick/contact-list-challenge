@@ -28,12 +28,12 @@ The Contact List Challenge is a web application that allows users to add, edit, 
 
 2. Navigate To the project dir:
    ```bash
-  cd contact-list-challenge
+   cd contact-list-challenge
   
 3. install dependencies:
    ```bash
    npm install
-   
+
 4. Start the dev server:
    ```bash
    npm run dev
