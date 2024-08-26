@@ -53,6 +53,20 @@ export async function deleteContactFromDB(id: string, imageName: string): Promis
 }
 
 export async function editContactInDB(contact: ContactDetailsType, id: string): Promise<void> {
+  const oldContact = await prisma.contact.findFirst({where: {id}})
+  if (!oldContact) {
+    throw new Error('Contact not found')
+  }
+
+  console.log(oldContact.pictureName, contact.pictureName)
+  if (oldContact.pictureName && oldContact?.pictureName !== contact.pictureName) {
+    try {
+      await deleteImage(oldContact?.pictureName)
+    } catch (error) {
+      console.error('Error deleting image:', error)
+      throw new Error('Error deleting image')
+    }
+  }
   try {
     if (contact.name === '') {
       throw new Error('Name field cannot be empty')
