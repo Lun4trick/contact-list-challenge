@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import useWatchMedia from '@/app/hooks/useMedia'
 import useContactActions from '@/app/hooks/useContactActions'
 import { useContactsContext } from '@/app/utils/ContactsContex'
+import useContactContainerButtons from '@/app/hooks/useContactContainerButtons'
 
 type Props = {
   contactId: string
@@ -15,6 +16,7 @@ type Props = {
 function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Props) {
   const optionsMenuRef = useRef<HTMLDivElement>(null)
   const options = useContactActions(contactId)
+  const containerButtonsOnMobile = useContactContainerButtons().filter(button => button.type !== 'OPTIONS')
   const isMobile = useWatchMedia('(min-width: 768px)')
 
   useEffect(() => {
@@ -50,6 +52,18 @@ function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Pro
               setIsOpen(false)
             }}>
             {option.name}
+          </Button>
+        </div>
+      ))}
+      {containerButtonsOnMobile.map(button => (
+        // These buttons normally outside on the main page, but on mobile i put them here                     
+        <div key={button.name} className='flex items-start sm:hidden'>
+          <Button 
+            buttonType='DROPDOWN' 
+            iconSrc={button.icon} 
+            iconAlt={button.name}
+            onClick={button.onClick}>
+            {button.name}
           </Button>
         </div>
       ))}

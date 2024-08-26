@@ -62,9 +62,10 @@ function AddContactImageUpload({ imageFile, imageLink, defaultImage }: Props) {
         <Image
           src={imageLink.value}
           alt='contact-image'
+          style={{ objectFit: 'cover' }}
           width={88}
           height={88}
-          className='rounded-full'
+          className='rounded-full max-w-[88px] max-h-[88px]'
         />
       )}
       <div className='flex gap-2 overflow-hidden'>

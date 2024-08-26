@@ -17,7 +17,13 @@ function ContactContainer({ contactDetails }: Props) {
       className='flex w-full justify-between py-3 group'
     >
       <div className='flex gap-2'>
-        <Image className='flex aspect-square max-w-fit max-h-fit rounded-full' src={picture} alt={`${name}'s profile pic`} height={40} width={40}/>
+        <Image 
+          className='flex aspect-square max-w-[40px] max-h-[40px] rounded-full' 
+          src={picture} 
+          alt={`${name}'s profile pic`}
+          style={{ objectFit: 'cover' }}
+          height={40} 
+          width={40}/>
         <div>
           <p>{name}</p>
           <p className='opacity-medium'>{phone}</p>

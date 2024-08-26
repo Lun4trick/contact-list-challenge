@@ -1,8 +1,9 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Button from '../../Button'
 import OptionsDropDown from './OptionsDropDown'
 import cn from 'classnames'
+import useContactContainerButtons from '@/app/hooks/useContactContainerButtons'
 
 type Props = {
   contactId: string
@@ -10,44 +11,23 @@ type Props = {
 }
 
 function ContactContainerButtons({ contactId }: Props) {
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false)
+  const containerButtons = useContactContainerButtons()
+  const [notifications, headphone, options] = containerButtons
   const optionsButtonRef = useRef(null)
 
-  const handleOptionsClick = (state?: boolean) => {
-    if (state !== undefined) {
-      setIsOptionsOpen(state)
-    } else {
-      setIsOptionsOpen((prevState) => !prevState)
-    }
-  }
-
-  const buttons = [
-    {
-      name: 'notifications',
-      icon: '/svgs/notification-icon.svg',
-      onClick: () => {}
-    },
-    {
-      name: 'headphone',
-      icon: '/svgs/headphone-icon.svg',
-      onClick: () => {}
-    },
-    {
-      name: 'options',
-      icon: '/svgs/options-icon.svg',
-      onClick: () => handleOptionsClick()
-    }
-  ]
   return (
     <div
       className={cn(
       'flex w-fit transition-opacity duration-300',
-      {'opacity-100 pointer-events-auto': isOptionsOpen},
-      {'opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto': !isOptionsOpen}
+      {'opacity-100 pointer-events-auto': options.isOptionsOpen},
+      {'opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto': !options.isOptionsOpen}
     )}>
-      {buttons.map(button => (
+      {containerButtons.map(button => (
         <div
-          ref={button.name === 'options' ? optionsButtonRef : null}
+          className={cn(
+            {'hidden sm:block': button.type !== 'OPTIONS'},
+          )}
+          ref={button.type === 'OPTIONS' ? optionsButtonRef : null}
           key={button.name}>
           <Button 
             buttonType='SECONDARY'
@@ -56,12 +36,12 @@ function ContactContainerButtons({ contactId }: Props) {
             onClick={button.onClick}
             >
           </Button>
-          {(button.name === 'options' 
-            && isOptionsOpen) 
+          {(button.type === 'OPTIONS' 
+            && options.isOptionsOpen) 
             && <OptionsDropDown
                   contactId={contactId}
-                  isOpen={isOptionsOpen} 
-                  setIsOpen={handleOptionsClick}
+                  isOpen={options.isOptionsOpen} 
+                  setIsOpen={options.onClick}
                   optionsButtonRef={optionsButtonRef}
                 />}
         </div>
