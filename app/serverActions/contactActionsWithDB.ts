@@ -5,6 +5,16 @@ import prisma from "../utils/pisma"
 import { deleteImage } from "../utils/requestFunctions/deleteImage"
 
 export async function addContactToDB(contact: ContactDetailsType): Promise<void> {
+  const isEmailIsInUse = await prisma.contact.findFirst({
+    where: {
+      email: contact.email
+    }
+  })
+
+  if (isEmailIsInUse) {
+    throw new Error('Email is already in use')
+  }
+
   if (contact.name === '') {
     throw new Error('Name field cannot be empty')
   }
@@ -12,6 +22,8 @@ export async function addContactToDB(contact: ContactDetailsType): Promise<void>
   if (contact.email && !checkIsEmailFormatCorrect(contact.email)) {
     throw new Error('Invalid email format')
   }
+
+
   try {
     await prisma.contact.create({
       data: {

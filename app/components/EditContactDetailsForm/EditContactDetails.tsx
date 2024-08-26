@@ -87,13 +87,13 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
 
       
       const newContacts = await getContactDetails()
+      closeModal()
       setContacts(newContacts.sort((a, b) => a.createdAt! <= b.createdAt! ? -1 : 1))
     } catch (error: any) {
       toast.error(error.message as string, {style: {backgroundColor: '#333333', color: '#ffffff'}})
     }
      finally {
       setIsUploading(false)
-      closeModal()
      }
 }
 
