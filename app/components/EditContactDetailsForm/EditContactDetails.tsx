@@ -27,7 +27,7 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   const { data: defaultImage } = useQuery('image', () => fetchImage())
   const [isUploading, setIsUploading] = useState(false)
   const { contacts, setContacts } = useContactsContext()
-
+  console.log(defaultImage)
   useEffect(() => {
     if (idToEdit) {
       const contact = contacts.find(contact => contact.id === idToEdit)
@@ -44,7 +44,7 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
     if (defaultImage && !imageFile.value && !idToEdit) {
       imageLink.set(defaultImage)
     }
-  }, [defaultImage, imageFile.value])
+  }, [defaultImage, imageFile.value, imageLink.value])
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
