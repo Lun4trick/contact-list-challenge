@@ -3,6 +3,11 @@
 ## Vercel link
   [Vercel app](https://contact-list-challenge-lun4tricks-projects.vercel.app/)
 
+  
+## ENV variables
+  
+  I send the env vars to your HR reqruiter via email
+
 ## Description
 The Contact List Challenge is a web application that allows users to add, edit, and delete contacts in a contact list. The app is built using modern web technologies and is designed to be fast, responsive, and easy to use.
 Both DB is containing only me as a contact at the moment, but feel free to add your contacts, with the provided ones in the challenge, or with your own.
@@ -57,7 +62,3 @@ The app currently uses Vercel SQL DB due to the limitations of using SQLite with
 2. Generate the prisma client:
    ```bash
    npx prisma generate
-
-## ENV variables
-  
-  I send the env vars to your HR reqruiter via email
