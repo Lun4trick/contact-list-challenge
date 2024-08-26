@@ -31,7 +31,7 @@ function useContactContainerButtons() {
         icon: '/svgs/options-icon.svg',
         type: 'OPTIONS' as ContactContainerButtonType,
         isOptionsOpen,
-        onClick: (state?: boolean) => handleOptionsClick(state)
+        onClick: () => handleOptionsClick()
       },
     ]
 

@@ -12,7 +12,7 @@ type Props = {
 
 function ContactContainerButtons({ contactId }: Props) {
   const containerButtons = useContactContainerButtons()
-  const [notifications, headphone, options] = containerButtons
+  const [_notifications, _headphone, options] = containerButtons
   const optionsButtonRef = useRef(null)
 
   return (

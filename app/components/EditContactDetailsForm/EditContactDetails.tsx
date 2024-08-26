@@ -94,7 +94,7 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
 }
 
   return (
-    <form className='w-full flex flex-col gap-6'>
+    <form action='POST' className='w-full flex flex-col gap-6'>
       <h2 className='text-left w-full'>
         {idToEdit ? 'Edit contact' : 'Add contact'}
       </h2>
