@@ -27,7 +27,6 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
   const { data: defaultImage } = useQuery('image', () => fetchImage())
   const [isUploading, setIsUploading] = useState(false)
   const { contacts, setContacts } = useContactsContext()
-  console.log(defaultImage)
   useEffect(() => {
     if (idToEdit) {
       const contact = contacts.find(contact => contact.id === idToEdit)
