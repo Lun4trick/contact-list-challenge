@@ -5,6 +5,7 @@ import { ImageFileUploadType, ImageLinkType } from '@/app/types/imageUploadTypes
 import cn from 'classnames'
 import Button from '../../Button'
 import fetchImage from '@/app/utils/requestFunctions/fetchImage'
+import classNames from 'classnames'
 type Props = {
   imageFile: ImageFileUploadType
   imageLink: ImageLinkType
@@ -59,14 +60,27 @@ function AddContactImageUpload({ imageFile, imageLink, defaultImage }: Props) {
         type='file' 
         onChange={handleFileChange} />
       {imageLink.value.length !== 0 && (
-        <Image
-          src={imageLink.value}
-          alt='contact-image'
-          style={{ objectFit: 'cover' }}
-          width={88}
-          height={88}
+        <motion.div
+          initial={{
+            scale: 0,
+          }}
+          animate={{
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.2
+          }}
           className='rounded-full max-w-[88px] max-h-[88px]'
-        />
+        >
+          <Image
+            src={imageLink.value}
+            alt='contact-image'
+            style={{ objectFit: 'cover' }}
+            width={88}
+            height={88}
+            className='rounded-full max-w-[88px] max-h-[88px]'
+          />
+        </motion.div>
       )}
       <div className='flex gap-2 overflow-hidden'>
         <Button buttonType='PRIMARY' iconSrc={uploadButtonIcon} iconAlt='plus-icon' onClick={handleFileUpload}>
