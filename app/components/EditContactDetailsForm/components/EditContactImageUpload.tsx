@@ -18,8 +18,8 @@ function AddContactImageUpload({ imageFile, imageLink, defaultImage }: Props) {
   const uploadButtonIcon = isImageDefault ? '/svgs/plus-icon.svg' : '/svgs/update-icon.svg'
 
   useEffect(() => {
-    const isDEfault = imageLink.value.includes('Default.png') || !imageLink.value
-    setIsImageDefault(isDEfault)
+    const isDefault = imageLink.value.includes('Default.png') || !imageLink.value
+    setIsImageDefault(isDefault)
   }, [imageLink])
 
   const handleFileUpload = (e: React.MouseEvent<HTMLButtonElement>) => {

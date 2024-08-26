@@ -74,10 +74,8 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
     try {
       const contactToEdit = contacts.find(contact => contact.id === idToEdit)
       setIsUploading(true)
-      const isImageChanged = defaultImage !== imageLink.value
       const pictureName = imageFile.value ? v4() : contactToEdit?.pictureName 
       if (imageFile.value && pictureName) {
-        console.log(pictureName)
         await handleImageUpload(imageFile.value as File, pictureName)
       }
 

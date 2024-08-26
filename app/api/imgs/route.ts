@@ -12,7 +12,6 @@ export async function GET() {
     });
 
     const url = (await getSignedUrl(s3, command, { expiresIn: 3600}));
-    console.log('url:', url);
 
     const response = new Response(url, {
       headers: {
