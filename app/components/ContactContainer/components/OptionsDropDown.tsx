@@ -3,7 +3,6 @@ import Button from '../../Button'
 import { motion } from 'framer-motion'
 import useWatchMedia from '@/app/hooks/useMedia'
 import useContactActions from '@/app/hooks/useContactActions'
-import { useContactsContext } from '@/app/utils/ContactsContex'
 import useContactContainerButtons from '@/app/hooks/useContactContainerButtons'
 
 type Props = {
@@ -14,7 +13,7 @@ type Props = {
 }
 
 function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Props) {
-  const optionsMenuRef = useRef<HTMLDivElement>(null)
+  const optionsMenuRef = useRef<HTMLUListElement>(null)
   const options = useContactActions(contactId)
   const containerButtonsOnMobile = useContactContainerButtons().filter(button => button.type !== 'OPTIONS')
   const isMobile = useWatchMedia('(min-width: 768px)')
@@ -35,14 +34,14 @@ function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Pro
   }, [optionsButtonRef]);
 
   return (
-    <motion.div
+    <motion.ul
       initial={{ opacity: 0, scale: 0}}
       animate={{opacity: isOpen ? 1 : 0, scale: isOpen ? 1 : 0, x: isMobile ? 0 : -100}}
       transition={{ duration: 0.2 }}
       ref={optionsMenuRef} 
       className='flex flex-col absolute z-20'>
       {options.map(option => (
-        <div key={option.name} className='flex items-start'>
+        <li key={option.name} className='flex items-start'>
           <Button 
             buttonType='DROPDOWN' 
             iconSrc={option.icon} 
@@ -53,11 +52,11 @@ function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Pro
             }}>
             {option.name}
           </Button>
-        </div>
+        </li>
       ))}
       {containerButtonsOnMobile.map(button => (
         // These buttons normally outside on the main page, but on mobile i put them here                     
-        <div key={button.name} className='flex items-start sm:hidden'>
+        <li key={button.name} className='flex items-start sm:hidden'>
           <Button 
             buttonType='DROPDOWN' 
             iconSrc={button.icon} 
@@ -65,9 +64,9 @@ function OptionsDropDown({ setIsOpen, isOpen, optionsButtonRef, contactId }: Pro
             onClick={button.onClick}>
             {button.name}
           </Button>
-        </div>
+        </li>
       ))}
-    </motion.div>
+    </motion.ul>
   )
 }
 
