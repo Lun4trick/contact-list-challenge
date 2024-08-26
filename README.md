@@ -25,12 +25,15 @@ The Contact List Challenge is a web application that allows users to add, edit, 
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/contact-list-challenge.git
+
 2. Navigate To the project dir:
-  ```bash
+   ```bash
   cd contact-list-challenge
+  
 3. install dependencies:
    ```bash
    npm install
+   
 4. Start the dev server:
    ```bash
    npm run dev
