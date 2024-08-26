@@ -2,6 +2,7 @@
 
 ## Description
 The Contact List Challenge is a web application that allows users to add, edit, and delete contacts in a contact list. The app is built using modern web technologies and is designed to be fast, responsive, and easy to use.
+Both DB is containing only me as a contact at the moment, but feel free to add your contacts, with the provided ones in the challenge, or with your own.
 
 ## Features
 - Add new contacts
@@ -38,8 +39,6 @@ The Contact List Challenge is a web application that allows users to add, edit, 
    ```bash
    npm run dev
 
-## Addition info about db
-
 ## Additional Info About DB
 
 The app currently uses Vercel SQL DB due to the limitations of using SQLite with Vercel. However, you can switch to SQLite by following these steps:
@@ -51,11 +50,11 @@ The app currently uses Vercel SQL DB due to the limitations of using SQLite with
      url      = "file:./dev.db"
    }
    //rest of the code...
-  
-2. Run the prisma migration:
-   ```bash
-   npx prisma migrate dev --name <name>
 
-3. Generate the prisma client:
+2. Generate the prisma client:
    ```bash
    npx prisma generate
+
+## ENV variables
+  
+  I send the env vars to your HR reqruiter via email

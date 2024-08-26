@@ -19,7 +19,7 @@ datasource db {
 // }
 // I leave this here because you asked me to do it with that, so you can test the project with sqlite as well.
 // just uncomment the above code and comment the code above it.
-// than run the command `npx prisma migrate dev --name init` to create the database and tables.
+// than run the command `npx prisma generate` to be able to connect to the db-s.
 
 
 model Contact {
