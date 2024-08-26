@@ -15,7 +15,7 @@ export default function Home() {
     }).catch(error => {
       console.error('Error fetching contacts:', error)
     })
-  }, [setContacts])
+  }, [isContactEditOpen])
 
   return (
     <main className="col-span-1 px-[24px] py-[12px] col-start-2 border-x-[1px] border-base-60 row-start-3">

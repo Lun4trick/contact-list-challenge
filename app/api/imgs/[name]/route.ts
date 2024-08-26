@@ -27,8 +27,6 @@ export async function GET(_req: Request, context: {params: {name: string}}) {
       }
     });
 
-    console.log(response)
-
     return response;
   } catch (error) {
     console.error('Error fetching image from S3:', error);

@@ -74,7 +74,8 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
     try {
       const contactToEdit = contacts.find(contact => contact.id === idToEdit)
       setIsUploading(true)
-      const pictureName = imageFile.value ? v4() : contactToEdit?.pictureName 
+      const pictureName = imageFile.value ? v4() : contactToEdit!.pictureName
+      const isDefaultImage = imageLink.value.includes('Default.png')
       if (imageFile.value && pictureName) {
         await handleImageUpload(imageFile.value as File, pictureName)
       }
@@ -83,7 +84,7 @@ function EditContactDetails({ closeModal, idToEdit }: Props) {
         name: nameField.value,
         email: emailField.value,
         phone: phoneField.value,
-        pictureName: pictureName || ''
+        pictureName: isDefaultImage ? '' : pictureName
       }
 
       if (!idToEdit) {
