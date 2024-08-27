@@ -39,7 +39,7 @@ function ContactContainer({ contactDetails }: Props) {
             width={40}/>
           <div>
             <p>{name}</p>
-            <p className='opacity-medium'>{phone}</p>
+            <p className='opacity-medium text-[12px]'>{phone}</p>
           </div>
         </div>
         <ContactContainerButtons contactId={id!} contactPictureName={pictureName} />

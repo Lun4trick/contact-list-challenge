@@ -26,9 +26,6 @@
       active:from-base-40/70 active:to-base-40/100
     }
 
-    .translate-x-80-percent {
-      transform: translateX(80%);
-    }
   }
   @layer base {
     h1 {
@@ -44,6 +41,6 @@
     }
 
     body {
-      @apply text-white bg-base-100 font-lexendDeca sm:text-[14px] text-[12px] sm:leading-[20px] leading-[18px] tracking-[1%]
+      @apply text-white bg-base-100 font-lexendDeca text-[14px]  leading-[20px] tracking-[1%]
     }
   }
